@@ -59,7 +59,6 @@ class Page extends Component {
         <StyledPage>
           <Meta />
           <Header />
-          <button>Click me</button>
           <Inner>{this.props.children}</Inner>
         </StyledPage>
       </ThemeProvider>

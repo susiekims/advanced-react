@@ -40,7 +40,7 @@ class Items extends Component {
             return (
               <ItemsList>
                 {data.items.map((item) => (
-                  <Item item={item} key={item.id}/>
+                  <Item item={item} key={item.id} />
                 ))}
               </ItemsList>
             );
@@ -52,3 +52,4 @@ class Items extends Component {
 }
 
 export default Items;
+export { ALL_ITEMS_QUERY };

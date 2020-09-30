@@ -1,5 +1,6 @@
 const { forwardTo } = require("prisma-binding");
 const { hasPermission } = require("../utils");
+const { createOrder } = require("./Mutation");
 
 const Query = {
   items: forwardTo("db"),
@@ -26,7 +27,46 @@ const Query = {
 
     return ctx.db.query.users({}, info);
   },
-  
+
+  async order(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error("You aren't logged in");
+    }
+
+    const order = await ctx.db.query.order(
+      {
+        where: { id: args.id },
+      },
+      info
+    );
+
+    const ownsOrder = order.user.id === ctx.request.userId;
+    const hasPermissionToSeeOrder = ctx.request.user.permissions.includes(
+      "ADMIN"
+    );
+
+    if (!ownsOrder && !hasPermissionToSeeOrder) {
+      throw new Error("You cannot look at this order");
+    }
+
+    return order;
+  },
+
+  async orders(parent, args, ctx, info) {
+    const { userId } = ctx.request;
+
+    if (!userId) {
+      throw new Error("You must be logged in");
+    }
+
+    return ctx.db.query.orders({
+      where: {
+        user: {
+          id: userId
+        },
+      },
+    }, info);
+  },
 };
 
 module.exports = Query;

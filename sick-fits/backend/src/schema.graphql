@@ -36,6 +36,8 @@ type Mutation {
   addToCart(id: ID!): CartItem
 
   removeFromCart(id: ID!): CartItem
+
+  createOrder(token: String!): Order!
 }
 
 type Query {
@@ -53,6 +55,10 @@ type Query {
   me: User
 
   users: [User]!
+
+  order(id: ID!): Order
+
+  orders(where: OrderWhereInput, orderBy: OrderOrderByInput): [Order]!
 }
 # type User {
 #   id: ID!

@@ -26,10 +26,11 @@ const Pagination = (props) => (
       const pages = Math.ceil(count / perPage);
       const { page } = props;
       return (
-        <PaginatiionStyles>
+        <PaginatiionStyles data-test="pagination">
           <Head>
             <title>
-              Sick Fits! Page {page} of {pages}
+              Sick Fits! Page {page} of
+              {pages}
             </title>
           </Head>
           <Link
@@ -39,10 +40,10 @@ const Pagination = (props) => (
               query: { page: page - 1 },
             }}
           >
-            <a aria-disabled={page <= 1}>⬅ Prev</a>
+            <a className="prev" aria-disabled={page <= 1}>⬅ Prev</a>
           </Link>
           <p>
-            Page {page} of {pages}
+            Page {page} of <span className="totalPages">{pages}</span>
           </p>
           <p>{count} items total</p>
           <Link
@@ -52,7 +53,7 @@ const Pagination = (props) => (
               query: { page: page + 1 },
             }}
           >
-            <a aria-disabled={page >= pages}>Next ➡</a>
+            <a className="next" aria-disabled={page >= pages}>Next ➡</a>
           </Link>
         </PaginatiionStyles>
       );
@@ -60,4 +61,5 @@ const Pagination = (props) => (
   </Query>
 );
 
+export { PAGINATION_QUERY };
 export default Pagination;

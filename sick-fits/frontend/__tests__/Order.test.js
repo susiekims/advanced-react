@@ -1,12 +1,8 @@
 import { mount } from "enzyme";
 import wait from "waait";
 import toJSON from "enzyme-to-json";
-import NProgress from "nprogress";
-import Router from "next/router";
 import { MockedProvider } from "react-apollo/test-utils";
 import Order, { SINGLE_ORDER_QUERY } from "../components/Order";
-import { CURRENT_USER_QUERY } from "../components/User";
-import { fakeUser, fakeCartItem, fakeOrder } from "../lib/testUtils";
 
 const mocks = [
   {
